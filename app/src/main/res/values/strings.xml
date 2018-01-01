@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Guess The Card</string>
+
+    <string name="room_code_label">Room Code</string>
+    <string name="wait_label">Waiting for someone to join the room</string>
+    <string name="title_pick_card">Choose a Card</string>
+    <string name="title_ask_question">Ask a Question</string>
+    <string name="title_guess_this">Your Opponent has to Guess This Card</string>
+    <string name="title_final_guess">Pick Your Final Guess!</string>
+
+    <string name="title_self_win">Congratulations! You guessed right!</string>
+    <string name="title_self_lose">Sorry, you guessed wrong.</string>
+    <string name="title_opponent_win">Boo, your opponent guessed first.</string>
+    <string name="title_opponent_lose">Yay, your opponent guessed wrong!</string>
+
+    <string name="confirm_text">Confirm</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="answer_text">Answer</string>
+    <string name="done_text">Done</string>
+    <string name="join_text">Join</string>
+    <string name="host_text">Host</string>
+    <string name="self_guess_text">Your Guess</string>
+    <string name="self_card_text">Your Card</string>
+    <string name="opponent_guess_text">Your Opponent\'s Guess</string>
+    <string name="opponent_card_text">Your Opponent\'s Card</string>
 </resources>

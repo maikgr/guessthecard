@@ -3,4 +3,6 @@
     <dimen name="UI_margin">8dp</dimen>
     <dimen name="layout_margin">12dp</dimen>
     <dimen name="divider_margin">20dp</dimen>
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="app_title_size">30sp</dimen>
 </resources>

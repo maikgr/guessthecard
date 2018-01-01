@@ -1,8 +1,10 @@
-package com.github.orangezonegame.guesswhogame;
+package com.github.orangezonegame.guesswhogame.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
+
+import com.github.orangezonegame.guesswhogame.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

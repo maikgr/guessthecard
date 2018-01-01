@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_cards_downside"
-    tools:context="com.github.orangezonegame.guesswhogame.activities.MainMenuActivity">
+    tools:context="com.github.orangezonegame.guesswhogame.activities.HostWaitingRoomActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -28,57 +28,58 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="@color/black"
-            android:textSize="@dimen/app_title_size"
+            android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_room_code"
+            android:id="@+id/tv_waiting_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Waiting for someone to join the room"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/divider_margin"
-            android:text="@string/room_code_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            />
+
+        <TextView
+            android:id="@+id/tv_room_code_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/UI_margin"
+            android:text="Room Code"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_waiting_text" />
 
-        <EditText
-            android:id="@+id/et_room_code"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/tv_room_code"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/UI_margin"
+            android:text="ABCDE6"
             android:textAlignment="center"
+            android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_room_code" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_code_label" />
 
         <info.hoang8f.widget.FButton
-            android:id="@+id/button_host"
+            android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/divider_margin"
-            android:text="@string/host_text"
-            app:fButtonColor="@color/button_primary"
+            android:text="Cancel"
+            app:fButtonColor="@color/button_grey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_room_code"
-            app:shadowColor="@color/button_primary_shadow"
-            app:shadowEnabled="true" />
-
-        <info.hoang8f.widget.FButton
-            android:id="@+id/button_join"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/UI_margin"
-            android:text="@string/join_text"
-            app:fButtonColor="@color/button_green"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_host"
-            app:shadowColor="@color/button_green_shadow"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_code"
+            app:shadowColor="@color/button_grey_shadow"
             app:shadowEnabled="true" />
     </android.support.constraint.ConstraintLayout>
 

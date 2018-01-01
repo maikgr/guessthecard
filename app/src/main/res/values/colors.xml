@@ -7,7 +7,8 @@
     <color name="button_purple">#673AB7</color>
     <color name="button_purple_shadow">#512DA8</color>
     <color name="button_blue">#1E88E5</color>
-    <color name="button_grey">#757575</color>
+    <color name="button_grey">#BDBDBD</color>
+    <color name="button_grey_shadow">#757575</color>
     <color name="button_green">#66BB6A</color>
     <color name="button_green_shadow">#43A047</color>
     <color name="button_primary">@color/colorAccent</color>
