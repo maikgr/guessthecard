@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:screenOrientation="landscape" android:theme="@style/NoActionBar" android:name=".activities.HostWaitingRoomActivity"/>
+        <activity android:screenOrientation="landscape" android:theme="@style/NoActionBar" android:name=".activities.PickMainCardActivity"/>
     </application>
 
 </manifest>
