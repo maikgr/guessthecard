@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Created by Maik on 1/6/2018.
  */
 
-public class GuessCardViewHolder extends ViewHolder {
+public class GuessCardViewHolder extends ViewHolder implements View.OnClickListener {
     @BindView(R.id.image_card_frame)
     ImageView cardImage;
 
@@ -28,5 +28,11 @@ public class GuessCardViewHolder extends ViewHolder {
     public GuessCardViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.common.GuessCardAdapter;
@@ -35,7 +36,7 @@ public class PickMainCardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         context = getApplicationContext();
-        GridLayoutManager layoutManager = new GridLayoutManager(context, 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, getScreenMaxSpan());
         cardsRecyclerView.setLayoutManager(layoutManager);
 
         GuessCardAdapter adapter = new GuessCardAdapter(getGuessCard());
@@ -54,5 +55,19 @@ public class PickMainCardActivity extends AppCompatActivity {
         guessCardList.add(new GuessCard(8, "Sieghild Orit", R.drawable.portrait4));
 
         return guessCardList;
+    }
+
+    private int getScreenMaxSpan(){
+        int cardWidthInDp = 130;
+        int screenMarginInDp = 16;
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        return pxToDp(metrics.widthPixels - (screenMarginInDp * 2)) / cardWidthInDp;
+    }
+
+    private int pxToDp(int px){
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return Math.round(px / (metrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }
