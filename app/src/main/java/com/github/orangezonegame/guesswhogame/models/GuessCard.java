@@ -8,11 +8,13 @@ public class GuessCard{
     private int id;
     private String name;
     private int resourceId;
+    private boolean isChosen;
 
-    public GuessCard(int id, String name, int resourceId) {
+    public GuessCard(int id, String name, int resourceId, boolean isChosen) {
         this.id = id;
         this.name = name;
         this.resourceId = resourceId;
+        this.isChosen = isChosen;
     }
 
     public int getId() {
@@ -25,5 +27,13 @@ public class GuessCard{
 
     public int getResourceId() {
         return resourceId;
+    }
+
+    public boolean getIsChosen(){
+        return isChosen;
+    }
+
+    public void setIsChosen(boolean isChosen){
+        this.isChosen = isChosen;
     }
 }

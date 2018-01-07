@@ -11,16 +11,19 @@ import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
 import java.util.List;
 
-/**
- * Created by Maik on 1/6/2018.
- */
-
 public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> {
 
-    private List<GuessCard> guessCardList;
+    public interface GuessCardOnItemClickListener {
+        void onItemClick(GuessCardViewHolder guessCardViewHolder, GuessCard guessCard);
+    }
 
-    public GuessCardAdapter(List<GuessCard> guessCardList) {
+    private List<GuessCard> guessCardList;
+    private GuessCardOnItemClickListener listener;
+    private int lastToggledPosition = -1;
+
+    public GuessCardAdapter(List<GuessCard> guessCardList, GuessCardOnItemClickListener listener) {
         this.guessCardList = guessCardList;
+        this.listener = listener;
     }
 
     @Override
@@ -39,10 +42,21 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         GuessCard card = guessCardList.get(position);
         holder.cardImage.setImageResource(card.getResourceId());
         holder.cardName.setText(card.getName());
+        holder.bind(card, listener);
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void toggleSingle(int position) {
+        guessCardList.get(lastToggledPosition).setIsChosen(false);
+        guessCardList.get(position).setIsChosen(true);
+
+    }
+
+    public List<GuessCard> getGuessCardList() {
+        return guessCardList;
     }
 }
