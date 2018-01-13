@@ -87,4 +87,16 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <info.hoang8f.widget.FButton
+        android:id="@+id/button_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/UI_margin"
+        android:text="Test"
+        app:fButtonColor="@color/button_grey"
+        app:shadowColor="@color/button_grey_shadow"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shadowEnabled="true" />
+
 </android.support.constraint.ConstraintLayout>

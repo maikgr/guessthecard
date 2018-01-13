@@ -41,12 +41,7 @@ public class PickMainCardActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(context, getScreenMaxSpan());
         cardsRecyclerView.setLayoutManager(layoutManager);
 
-        GuessCardAdapter adapter = new GuessCardAdapter(getGuessCard(), new GuessCardAdapter.GuessCardOnItemClickListener() {
-            @Override
-            public void onItemClick(GuessCardViewHolder view, GuessCard guessCard) {
-                view.toggleState();
-            }
-        });
+        final GuessCardAdapter adapter = new GuessCardAdapter(getGuessCard());
         cardsRecyclerView.setAdapter(adapter);
     }
 

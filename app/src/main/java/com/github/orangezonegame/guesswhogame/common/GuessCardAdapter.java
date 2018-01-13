@@ -5,25 +5,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> {
+public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> implements AdapterView.OnItemClickListener {
 
     public interface GuessCardOnItemClickListener {
         void onItemClick(GuessCardViewHolder guessCardViewHolder, GuessCard guessCard);
     }
 
     private List<GuessCard> guessCardList;
-    private GuessCardOnItemClickListener listener;
-    private int lastToggledPosition = -1;
+    private List<GuessCardViewHolder> guessCardHolderList;
+    private int lastPosition = -1;
 
-    public GuessCardAdapter(List<GuessCard> guessCardList, GuessCardOnItemClickListener listener) {
+    public GuessCardAdapter(List<GuessCard> guessCardList) {
         this.guessCardList = guessCardList;
-        this.listener = listener;
+        guessCardHolderList = new ArrayList<>();
     }
 
     @Override
@@ -42,7 +44,7 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         GuessCard card = guessCardList.get(position);
         holder.cardImage.setImageResource(card.getResourceId());
         holder.cardName.setText(card.getName());
-        holder.bind(card, listener);
+        guessCardHolderList.add(holder);
     }
 
     @Override
@@ -50,10 +52,20 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void toggleSingle(int position) {
-        guessCardList.get(lastToggledPosition).setIsChosen(false);
-        guessCardList.get(position).setIsChosen(true);
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        toggleSingle(i);
+    }
 
+    public void toggleSingle(int position) {
+        if(lastPosition == -1){
+            guessCardHolderList.get(position).enable();
+        } else{
+            guessCardHolderList.get(lastPosition).disable();
+            guessCardHolderList.get(position).enable();
+        }
+        lastPosition = position;
+        notifyDataSetChanged();
     }
 
     public List<GuessCard> getGuessCardList() {

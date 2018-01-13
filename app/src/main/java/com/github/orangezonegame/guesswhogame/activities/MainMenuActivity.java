@@ -71,6 +71,11 @@ public class MainMenuActivity extends AppCompatActivity {
         sendRoomID(Constants.JOIN_SEND, roomCode);
     }
 
+    @OnClick(R.id.button_test)
+    public void testApp(){
+        startActivity(new Intent(context, PickMainCardActivity.class));
+    }
+
     public void sendRoomID(String signal, String roomCode) {
         Map<String, String> data = new HashMap<String, String>();
         data.put("roomID", roomCode);

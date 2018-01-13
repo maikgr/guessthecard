@@ -62,8 +62,16 @@ public class GuessCardViewHolder extends ViewHolder {
         return cardState;
     }
 
-    public void setState(int viewState){
+    private void setState(int viewState){
         cardOverlay.setVisibility(viewState);
         cardState = viewState;
+    }
+
+    public void enable(){
+        setState(View.VISIBLE);
+    }
+
+    public void disable(){
+        setState(View.INVISIBLE);
     }
 }
