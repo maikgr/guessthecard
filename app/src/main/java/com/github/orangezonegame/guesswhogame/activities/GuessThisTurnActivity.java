@@ -19,7 +19,7 @@ import butterknife.OnClick;
  * Created by Maik on 1/13/2018.
  */
 
-public class GuessThisActivity extends AppCompatActivity {
+public class GuessThisTurnActivity extends AppCompatActivity {
 
     @BindView(R.id.cv_card)
     CardView cardCardView;
