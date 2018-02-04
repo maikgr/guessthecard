@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -17,7 +16,6 @@ import com.github.orangezonegame.guesswhogame.common.GuessCardViewHolder;
 import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +45,8 @@ public class PickMainCardActivity extends AppCompatActivity {
 
         context = getApplicationContext();
         cards = getGuessCard();
-        GridLayoutManager layoutManager = new GridLayoutManager(context, getScreenMaxSpan());
+        int screenSpan = new SharedPrefs(context).readInt(SharedPrefs.TAG_MAXSPAN);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, screenSpan);
         cardsRecyclerView.setLayoutManager(layoutManager);
 
         GuessCardAdapter adapter = new GuessCardAdapter(cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
@@ -68,25 +67,11 @@ public class PickMainCardActivity extends AppCompatActivity {
     @OnClick(R.id.button_confirm)
     public void confirmSelection(){
         Log.v("Card pick", "Selected= " + cards.get(selectedCardId).getName());
-        new SharedPrefs(context).write(SharedPrefs.TAG_MAINCARD, String.valueOf(selectedCardId));
+        new SharedPrefs(context).write(SharedPrefs.TAG_MAINCARD, selectedCardId);
         startActivity(new Intent(context, GuessThisTurnActivity.class));
     }
 
     private List<GuessCard> getGuessCard(){
-        return Arrays.asList(Constants.guessCards);
-    }
-
-    private int getScreenMaxSpan(){
-        final int cardWidthInDp = 130;
-        final int screenMarginInDp = 16;
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        return pxToDp(metrics.widthPixels - (screenMarginInDp * 2)) / cardWidthInDp;
-    }
-
-    private int pxToDp(int px){
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return Math.round(px / (metrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return Arrays.asList(Constants.GUESS_CARDS);
     }
 }

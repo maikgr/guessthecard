@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 public class SharedPrefs {
 
     public static final String TAG_MAINCARD = "main card";
+    public static final String TAG_MAXSPAN = "max span";
 
     private static final String KEY = "_key";
     private SharedPreferences prefs;
@@ -24,8 +25,19 @@ public class SharedPrefs {
         editor.apply();
     }
 
-    public String read(String tag){
+    public void write(String tag, int value){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(tag, value);
+        editor.apply();
+    }
+
+    public String readString(String tag){
         String empty = "";
         return prefs.getString(tag, empty);
+    }
+
+    public int readInt(String tag){
+        int empty = 0;
+        return prefs.getInt(tag, empty);
     }
 }

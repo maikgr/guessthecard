@@ -40,7 +40,7 @@ public final class Constants {
         public static final int START_SECOND = 8;
     }
 
-    public static final GuessCard[] guessCards = {
+    public static final GuessCard[] GUESS_CARDS = {
             new GuessCard(0, "Alya Steenie", R.drawable.portrait1, false),
             new GuessCard(1, "Itziar Panni", R.drawable.portrait2, false),
             new GuessCard(2, "Radha Gunhild", R.drawable.portrait3, false),

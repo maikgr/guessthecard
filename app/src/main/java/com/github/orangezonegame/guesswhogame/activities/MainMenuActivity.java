@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.common.Constants;
 import com.github.orangezonegame.guesswhogame.common.ServerApp;
+import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +22,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.hoang8f.widget.FButton;
 import io.socket.emitter.Emitter;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -41,6 +41,7 @@ public class MainMenuActivity extends AppCompatActivity {
         serverApp = (ServerApp) getApplication();
         context = getApplicationContext();
         etRoomCode.setText(randomRoomCode());
+        new SharedPrefs(context).write(SharedPrefs.TAG_MAXSPAN, getScreenMaxSpan());
     }
 
     private String randomRoomCode(){
@@ -152,4 +153,18 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         }
     };
+
+    private int getScreenMaxSpan(){
+        final int cardWidthInDp = 130;
+        final int screenMarginInDp = 16;
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        return pxToDp(metrics.widthPixels - (screenMarginInDp * 2)) / cardWidthInDp;
+    }
+
+    private int pxToDp(int px){
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return Math.round(px / (metrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
 }
