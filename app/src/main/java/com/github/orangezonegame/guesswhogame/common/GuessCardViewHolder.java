@@ -30,13 +30,11 @@ public class GuessCardViewHolder extends ViewHolder {
     @BindView(R.id.overlay)
     ImageView cardOverlay;
 
-    private View itemView;
     private int cardState;
 
     public GuessCardViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        this.itemView = itemView;
         setState(View.INVISIBLE);
     }
 
@@ -58,20 +56,8 @@ public class GuessCardViewHolder extends ViewHolder {
         }
     }
 
-    public int getState(){
-        return cardState;
-    }
-
-    private void setState(int viewState){
+    public void setState(int viewState){
         cardOverlay.setVisibility(viewState);
         cardState = viewState;
-    }
-
-    public void enable(){
-        setState(View.VISIBLE);
-    }
-
-    public void disable(){
-        setState(View.INVISIBLE);
     }
 }

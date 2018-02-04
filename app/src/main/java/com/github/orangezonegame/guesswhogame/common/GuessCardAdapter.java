@@ -5,27 +5,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> implements AdapterView.OnItemClickListener {
+public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> {
 
     public interface GuessCardOnItemClickListener {
         void onItemClick(GuessCardViewHolder guessCardViewHolder, GuessCard guessCard);
     }
 
     private List<GuessCard> guessCardList;
-    private List<GuessCardViewHolder> guessCardHolderList;
-    private int lastPosition = -1;
+    private GuessCardOnItemClickListener listener;
 
-    public GuessCardAdapter(List<GuessCard> guessCardList) {
+    public GuessCardAdapter(List<GuessCard> guessCardList, GuessCardOnItemClickListener listener) {
         this.guessCardList = guessCardList;
-        guessCardHolderList = new ArrayList<>();
+        this.listener = listener;
     }
 
     @Override
@@ -44,7 +41,7 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         GuessCard card = guessCardList.get(position);
         holder.cardImage.setImageResource(card.getResourceId());
         holder.cardName.setText(card.getName());
-        guessCardHolderList.add(holder);
+        holder.bind(card, listener);
     }
 
     @Override
@@ -52,23 +49,4 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        toggleSingle(i);
-    }
-
-    public void toggleSingle(int position) {
-        if(lastPosition == -1){
-            guessCardHolderList.get(position).enable();
-        } else{
-            guessCardHolderList.get(lastPosition).disable();
-            guessCardHolderList.get(position).enable();
-        }
-        lastPosition = position;
-        notifyDataSetChanged();
-    }
-
-    public List<GuessCard> getGuessCardList() {
-        return guessCardList;
-    }
 }
