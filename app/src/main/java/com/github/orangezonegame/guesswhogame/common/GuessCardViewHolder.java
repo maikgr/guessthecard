@@ -3,7 +3,6 @@ package com.github.orangezonegame.guesswhogame.common;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +43,7 @@ public class GuessCardViewHolder extends ViewHolder {
             @Override
             public void onClick(View view) {
                 listener.onItemClick(viewHolder, guessCard);
+                guessCard.setIsChosen(cardState == View.VISIBLE);
             }
         });
     }

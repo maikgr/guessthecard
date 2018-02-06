@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.common.Constants;
@@ -14,6 +13,8 @@ import com.github.orangezonegame.guesswhogame.common.GuessCardAdapter;
 import com.github.orangezonegame.guesswhogame.common.GuessCardViewHolder;
 import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +33,7 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
 
     private Context context;
     private List<GuessCard> cards;
+    private SharedPrefs prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,13 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         context = getApplicationContext();
-        cards = Arrays.asList(Constants.GUESS_CARDS);
+        prefs = new SharedPrefs(context);
+        String cardJson = prefs.readString(SharedPrefs.TAG_SAVEDCARDS);
+        if (!cardJson.equals("")) {
+            cards = new Gson().fromJson(cardJson, new TypeToken<List<GuessCard>>(){}.getType());
+        } else {
+            cards = Arrays.asList(Constants.GUESS_CARDS);
+        }
 
         int screenSpan = new SharedPrefs(context).readInt(SharedPrefs.TAG_MAXSPAN);
         GridLayoutManager layoutManager = new GridLayoutManager(context, screenSpan);
@@ -62,6 +70,8 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_done)
     public void nextTurn(){
+        String savedCardsJson = new Gson().toJson(cards);
+        prefs.write(SharedPrefs.TAG_SAVEDCARDS, savedCardsJson);
         startActivity(new Intent(context, GuessThisTurnActivity.class));
     }
 

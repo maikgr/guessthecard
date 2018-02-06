@@ -41,6 +41,8 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         GuessCard card = guessCardList.get(position);
         holder.cardImage.setImageResource(card.getResourceId());
         holder.cardName.setText(card.getName());
+        if (card.getIsChosen()) holder.setState(View.VISIBLE);
+
         holder.bind(card, listener);
     }
 
