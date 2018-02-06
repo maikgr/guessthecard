@@ -16,7 +16,9 @@ import com.github.orangezonegame.guesswhogame.common.GuessCardViewHolder;
 import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,7 +46,8 @@ public class PickMainCardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         context = getApplicationContext();
-        cards = getGuessCard();
+        cards = new ArrayList<>();
+        Collections.addAll(cards, Constants.GUESS_CARDS);
         int screenSpan = new SharedPrefs(context).readInt(SharedPrefs.TAG_MAXSPAN);
         GridLayoutManager layoutManager = new GridLayoutManager(context, screenSpan);
         cardsRecyclerView.setLayoutManager(layoutManager);
@@ -66,12 +69,7 @@ public class PickMainCardActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_confirm)
     public void confirmSelection(){
-        Log.v("Card pick", "Selected= " + cards.get(selectedCardId).getName());
         new SharedPrefs(context).write(SharedPrefs.TAG_MAINCARD, selectedCardId);
         startActivity(new Intent(context, GuessThisTurnActivity.class));
-    }
-
-    private List<GuessCard> getGuessCard(){
-        return Arrays.asList(Constants.GUESS_CARDS);
     }
 }

@@ -41,7 +41,9 @@ public class MainMenuActivity extends AppCompatActivity {
         serverApp = (ServerApp) getApplication();
         context = getApplicationContext();
         etRoomCode.setText(randomRoomCode());
-        new SharedPrefs(context).write(SharedPrefs.TAG_MAXSPAN, getScreenMaxSpan());
+        SharedPrefs prefs = new SharedPrefs(context);
+        prefs.remove();
+        prefs.write(SharedPrefs.TAG_MAXSPAN, getScreenMaxSpan());
     }
 
     private String randomRoomCode(){

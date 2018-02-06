@@ -42,4 +42,10 @@ public class SharedPrefs {
         int empty = 0;
         return prefs.getInt(tag, empty);
     }
+
+    public void remove(){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

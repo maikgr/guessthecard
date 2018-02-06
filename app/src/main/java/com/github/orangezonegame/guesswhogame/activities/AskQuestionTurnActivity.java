@@ -16,7 +16,9 @@ import com.github.orangezonegame.guesswhogame.models.GuessCard;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +49,8 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
         if (!cardJson.equals("")) {
             cards = new Gson().fromJson(cardJson, new TypeToken<List<GuessCard>>(){}.getType());
         } else {
-            cards = Arrays.asList(Constants.GUESS_CARDS);
+            cards = new ArrayList<>();
+            Collections.addAll(cards, Constants.GUESS_CARDS);
         }
 
         int screenSpan = new SharedPrefs(context).readInt(SharedPrefs.TAG_MAXSPAN);
@@ -77,6 +80,12 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_answer)
     public void finalGuess(){
+        List<GuessCard> activeCards = new ArrayList<>();
+        for(GuessCard card : cards){
+            if(!card.getIsChosen()) activeCards.add(card);
+        }
+
+        prefs.write(SharedPrefs.TAG_ACTIVECARDS, new Gson().toJson(activeCards));
         startActivity(new Intent(context, FinalGuessActivity.class));
     }
 }
