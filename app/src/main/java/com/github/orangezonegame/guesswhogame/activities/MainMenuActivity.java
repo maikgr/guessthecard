@@ -64,6 +64,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Log.i("MainMenuActivity", "host");
         String roomCode = etRoomCode.getText().toString();
         serverApp.attachListener(Constants.HOST_RESULT, onHostResult);
+        new SharedPrefs(context).write(SharedPrefs.TAG_STATE, Constants.HOST_SEND);
         sendRoomID(Constants.HOST_SEND, roomCode);
     }
 
@@ -71,6 +72,7 @@ public class MainMenuActivity extends AppCompatActivity {
     public void joinRoom(){
         String roomCode = etRoomCode.getText().toString();
         serverApp.attachListener(Constants.JOIN_RESULT, onJoinResult);
+        new SharedPrefs(context).write(SharedPrefs.TAG_STATE, Constants.JOIN_SEND);
         sendRoomID(Constants.JOIN_SEND, roomCode);
     }
 

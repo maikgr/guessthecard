@@ -50,4 +50,7 @@ public final class Constants {
             new GuessCard(6, "Jeanette Ley", R.drawable.portrait3, false),
             new GuessCard(7, "Sieghild", R.drawable.portrait4, false)
     };
+
+    public static final String SELF_CARD_ID = "self";
+    public static final String OPPONENT_CARD_ID = "opponent";
 }

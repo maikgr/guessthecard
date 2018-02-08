@@ -24,6 +24,7 @@
         <activity android:screenOrientation="landscape" android:theme="@style/NoActionBar" android:name=".activities.AskQuestionTurnActivity"/>
         <activity android:screenOrientation="landscape" android:theme="@style/NoActionBar" android:name=".activities.FinalGuessActivity"/>
         <activity android:screenOrientation="landscape" android:theme="@style/NoActionBar" android:name=".activities.GuessThisTurnActivity"/>
+        <activity android:screenOrientation="landscape" android:theme="@style/NoActionBar" android:name=".activities.GameOverActivity" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ public class SharedPrefs {
     public static final String TAG_MAXSPAN = "max span";
     public static final String TAG_SAVEDCARDS = "saved cards";
     public static final String TAG_ACTIVECARDS = "active cards";
+    public static final String TAG_STATE = "state";
 
     private static final String KEY = "_key";
     private SharedPreferences prefs;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.common.Constants;
+import com.github.orangezonegame.guesswhogame.common.GuessCardCardView;
 import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
@@ -53,11 +54,4 @@ public class GuessThisTurnActivity extends AppCompatActivity {
         startActivity(new Intent(context, AskQuestionTurnActivity.class));
     }
 
-    class GuessCardCardView{
-        @BindView(R.id.image_card_frame)
-        ImageView cardImageView;
-
-        @BindView(R.id.tv_card_name)
-        TextView cardName;
-    }
 }
