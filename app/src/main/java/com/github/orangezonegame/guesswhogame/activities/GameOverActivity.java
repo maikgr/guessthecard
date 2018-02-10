@@ -1,8 +1,10 @@
 package com.github.orangezonegame.guesswhogame.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 import com.github.orangezonegame.guesswhogame.models.GuessCard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,15 +43,31 @@ public class GameOverActivity extends AppCompatActivity{
     @BindView(R.id.opponent_card)
     View opponentCardInclude;
 
+    @BindView(R.id.layout_gameover)
+    ConstraintLayout layout;
+
+    private Context context;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
         ButterKnife.bind(this);
 
-        Context context = getApplicationContext();
-        List<GuessCard> cards = new ArrayList<>();
-        Collections.addAll(cards, Constants.GUESS_CARDS);
+        context = getApplicationContext();
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(context, MainMenuActivity.class));
+            }
+        });
+
+        setLayoutContent();
+    }
+
+    private void setLayoutContent(){
+        List<GuessCard> cards = Arrays.asList(Constants.GUESS_CARDS);
 
         GuessCardCardView selfCardView = new GuessCardCardView();
         ButterKnife.bind(selfCardView, selfCardInclude);
@@ -59,7 +78,7 @@ public class GameOverActivity extends AppCompatActivity{
 
         GuessCardCardView opponentCardView = new GuessCardCardView();
         ButterKnife.bind(opponentCardView, opponentCardInclude);
-        int opponentCardId = 0;
+        int opponentCardId = 0; //TODO: From server
         GuessCard opponentCard = cards.get(opponentCardId);
         opponentCardView.cardImageView.setImageResource(opponentCard.getResourceId());
         opponentCardView.cardName.setText(opponentCard.getName());
@@ -69,27 +88,35 @@ public class GameOverActivity extends AppCompatActivity{
         boolean isWinner = isHost ? selfCardId != opponentCardId : selfCardId == opponentCardId;
 
         if(isHost){
-            if(isWinner) showWinnerAsHost();
-            else  showLoserAsHost();
+            if(isWinner) showHostAsWinner();
+            else showHostAsLoser();
         } else {
-            if(isWinner) showWinnerAsOpponent();
-            else showLoserAsOpponent();
+            if(isWinner) showOpponentAsWinner();
+            else showOpponentAsLoser();
         }
     }
 
-    private void showWinnerAsHost(){
-
+    private void showHostAsWinner(){
+        gameResultText.setText(getString(R.string.title_opponent_lose));
+        selfCardText.setText(getString(R.string.self_card_text));
+        opponentCardText.setText(getString(R.string.opponent_guess_text));
     }
 
-    private void showWinnerAsOpponent(){
-
+    private void showOpponentAsWinner(){
+        gameResultText.setText(getString(R.string.title_opponent_win));
+        selfCardText.setText(getString(R.string.self_card_text));
+        opponentCardText.setText(getString(R.string.opponent_guess_text));
     }
 
-    private void showLoserAsHost(){
-
+    private void showHostAsLoser(){
+        gameResultText.setText(getString(R.string.title_self_win));
+        selfCardText.setText(getString(R.string.self_guess_text));
+        opponentCardText.setText(getString(R.string.opponent_card_text));
     }
 
-    private void showLoserAsOpponent(){
-
+    private void showOpponentAsLoser(){
+        gameResultText.setText(getString(R.string.title_self_lose));
+        selfCardText.setText(getString(R.string.self_guess_text));
+        opponentCardText.setText(getString(R.string.opponent_card_text));
     }
 }

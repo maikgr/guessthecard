@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.github.orangezonegame.guesswhogame.R;
+import com.github.orangezonegame.guesswhogame.common.Constants;
 import com.github.orangezonegame.guesswhogame.common.GuessCardAdapter;
 import com.github.orangezonegame.guesswhogame.common.GuessCardViewHolder;
 import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
@@ -72,9 +73,9 @@ public class FinalGuessActivity extends AppCompatActivity {
     @OnClick(R.id.button_confirm)
     public void confirmFinalGuess(){
         try{
-            GuessCard finalCard = cards.get(selectedCardId);
-            Toast toast = Toast.makeText(context, "Selected " + finalCard.getId() + "::" + finalCard.getName(), Toast.LENGTH_SHORT);
-            toast.show();
+            Intent intent = new Intent(context, GameOverActivity.class);
+            intent.putExtra(Constants.SELF_CARD_ID, selectedCardId);
+            startActivity(intent);
         } catch(NullPointerException | IndexOutOfBoundsException e){
             Toast toast = Toast.makeText(context, "Please select a card", Toast.LENGTH_SHORT);
             toast.show();

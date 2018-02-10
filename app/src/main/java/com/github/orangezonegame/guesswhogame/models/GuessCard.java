@@ -4,7 +4,7 @@ package com.github.orangezonegame.guesswhogame.models;
  * Created by Maik on 1/6/2018.
  */
 
-public class GuessCard{
+public class GuessCard implements Cloneable{
     private int id;
     private String name;
     private int resourceId;
@@ -15,6 +15,11 @@ public class GuessCard{
         this.name = name;
         this.resourceId = resourceId;
         this.isChosen = isChosen;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public int getId() {
@@ -36,4 +41,6 @@ public class GuessCard{
     public void setIsChosen(boolean isChosen){
         this.isChosen = isChosen;
     }
+
+
 }

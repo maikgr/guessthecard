@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.common.Constants;
@@ -46,8 +47,14 @@ public class PickMainCardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         context = getApplicationContext();
+
         cards = new ArrayList<>();
-        Collections.addAll(cards, Constants.GUESS_CARDS);
+        for(GuessCard card : Constants.GUESS_CARDS){
+            try {
+                cards.add((GuessCard) card.clone());
+            } catch(CloneNotSupportedException e){}
+        }
+
         int screenSpan = new SharedPrefs(context).readInt(SharedPrefs.TAG_MAXSPAN);
         GridLayoutManager layoutManager = new GridLayoutManager(context, screenSpan);
         cardsRecyclerView.setLayoutManager(layoutManager);

@@ -17,8 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,7 +48,11 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
             cards = new Gson().fromJson(cardJson, new TypeToken<List<GuessCard>>(){}.getType());
         } else {
             cards = new ArrayList<>();
-            Collections.addAll(cards, Constants.GUESS_CARDS);
+            for(GuessCard card : Constants.GUESS_CARDS){
+                try {
+                    cards.add((GuessCard) card.clone());
+                } catch(CloneNotSupportedException e){}
+            }
         }
 
         int screenSpan = new SharedPrefs(context).readInt(SharedPrefs.TAG_MAXSPAN);
