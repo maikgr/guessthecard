@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.github.orangezonegame.guesswhogame.R;
 import com.github.orangezonegame.guesswhogame.common.Constants;
 import com.github.orangezonegame.guesswhogame.common.ServerApp;
+import com.github.orangezonegame.guesswhogame.common.SharedPrefs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,13 +61,11 @@ public class HostWaitingRoomActivity extends AppCompatActivity {
             JSONObject data = (JSONObject) args[0];
             Log.i("HostWaitingRoom", "in join result");
 
-            String message;
-            int playerID, resultCode;
+            int resultCode;
+            String message, playerID, roomID;
 
             try {
                 resultCode = data.getInt(Constants.CODE);
-                message = data.getString(Constants.MESSAGE);
-                playerID = data.getInt(Constants.PLAYERID);
                 Log.i("HostWaitingRoom", "code: " + resultCode);
             } catch (JSONException e) {
                 Log.i("HostWaitingRoom", "JOIN: Catch error");
