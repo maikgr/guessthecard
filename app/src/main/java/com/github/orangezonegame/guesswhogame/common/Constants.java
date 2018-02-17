@@ -55,7 +55,11 @@ public final class Constants {
             new GuessCard(8, "Porygon", R.drawable.porygon, false),
             new GuessCard(9, "Rapidash", R.drawable.rapidash, false),
             new GuessCard(10, "Shellder", R.drawable.shellder, false),
-            new GuessCard(11, "Tauros", R.drawable.tauros, false)
+            new GuessCard(11, "Tauros", R.drawable.tauros, false),
+            new GuessCard(12, "Jynx", R.drawable.jynx, false),
+            new GuessCard(13, "Tangela", R.drawable.tangela, false),
+            new GuessCard(14, "Dragonair", R.drawable.dragonair, false),
+            new GuessCard(15, "Koffing", R.drawable.koffing, false)
     };
 
     public static final String SELF_CARD_ID = "self";
