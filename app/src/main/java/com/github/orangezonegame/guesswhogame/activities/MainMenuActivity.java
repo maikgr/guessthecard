@@ -46,6 +46,18 @@ public class MainMenuActivity extends AppCompatActivity {
         prefs.write(SharedPrefs.TAG_MAXSPAN, getScreenMaxSpan());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        serverApp.detachListener(Constants.HOST_RESULT, onHostResult);
+        serverApp.detachListener(Constants.JOIN_RESULT, onJoinResult);
+    }
+
     private String randomRoomCode(){
         final String ALPHA_NUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         final int roomCodeLimit = 6;
@@ -96,21 +108,19 @@ public class MainMenuActivity extends AppCompatActivity {
     private Emitter.Listener onHostResult = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            //serverApp.detachListener(Constants.HOST_RESULT, onHostResult);
-
             JSONObject data = (JSONObject) args[0];
 
             Log.i("MainMenuActivity", "in host result");
 
-            String message, roomID;
-            int playerID, resultCode;
+            String message, roomID, playerID;
+            int resultCode;
 
             try {
                 resultCode = data.getInt(Constants.CODE);
                 message = data.getString(Constants.MESSAGE);
-                playerID = data.getInt(Constants.PLAYERID);
+                playerID = data.getString(Constants.PLAYERID);
                 roomID = data.getString(Constants.ROOMID);
-                Log.i("MainMenuActivity", "code: " + resultCode + ", message: " + message);
+                Log.i("MainMenuActivity", "player id: " + playerID);
             } catch (JSONException e) {
                 Log.i("MainMenuActivity", "Catch error");
                 return;
@@ -118,10 +128,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
             if (resultCode == Constants.RESULT.HOST_SUCCESS) {
                 launchHost(roomID);
-                // plus save playerID
+                new SharedPrefs(context).write(Constants.PLAYERID, playerID);
+                new SharedPrefs(context).write(Constants.ROOMID, roomID);
             }
             else {
-                // display error message
+                // TODO: display error message
             }
         }
     };
@@ -129,20 +140,18 @@ public class MainMenuActivity extends AppCompatActivity {
     private Emitter.Listener onJoinResult = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            //serverApp.detachListener(Constants.JOIN_RESULT, onJoinResult);
-
             JSONObject data = (JSONObject) args[0];
             Log.i("MainMenuActivity", "in join result");
 
-            String message, roomID;
-            int playerID, resultCode;
+            String message, roomID, playerID;
+            int resultCode;
 
             try {
                 resultCode = data.getInt(Constants.CODE);
                 message = data.getString(Constants.MESSAGE);
-                playerID = data.getInt(Constants.PLAYERID);
+                playerID = data.getString(Constants.PLAYERID);
                 roomID = data.getString(Constants.ROOMID);
-                Log.i("MainMenuActivity", "code: " + resultCode + ", message: " + message);
+                Log.i("MainMenuActivity", "player id: " + playerID);
             } catch (JSONException e) {
                 Log.i("MainMenuActivity", "JOIN: Catch error");
                 return;
@@ -150,10 +159,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
             if (resultCode == Constants.RESULT.JOIN_SUCCESS) {
                 //String roomCode = etRoomCode.getText().toString().toUpperCase();
+                new SharedPrefs(context).write(Constants.PLAYERID, playerID);
+                new SharedPrefs(context).write(Constants.ROOMID, roomID);
                 startActivity(new Intent(context, PickMainCardActivity.class));
             }
             else {
-                // display error message
+                // TODO: display error message
             }
         }
     };

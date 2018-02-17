@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -69,25 +70,30 @@ public class GameOverActivity extends AppCompatActivity{
     private void setLayoutContent(){
         List<GuessCard> cards = Arrays.asList(Constants.GUESS_CARDS);
 
+        int realCardId = getIntent().getIntExtra("real card", -1),
+                guessCardId = getIntent().getIntExtra("guess card", -1);
+        boolean isGuesser = getIntent().getBooleanExtra("isGuesser", false);
+
+        Log.i("GameoverActivity", "guessCard: " + guessCardId);
+        Log.i("GameoverActivity", "realCard: " + realCardId);
+        Log.i("GameoverActivity", "isGuesser: " + isGuesser);
+
         GuessCardCardView selfCardView = new GuessCardCardView();
         ButterKnife.bind(selfCardView, selfCardInclude);
-        int selfCardId = getIntent().getIntExtra(Constants.SELF_CARD_ID, -1);
-        GuessCard selfCard = cards.get(selfCardId);
+        GuessCard selfCard = cards.get(realCardId);
         selfCardView.cardImageView.setImageResource(selfCard.getResourceId());
         selfCardView.cardName.setText(selfCard.getName());
 
         GuessCardCardView opponentCardView = new GuessCardCardView();
         ButterKnife.bind(opponentCardView, opponentCardInclude);
-        int opponentCardId = 0; //TODO: From server
-        GuessCard opponentCard = cards.get(opponentCardId);
+        GuessCard opponentCard = cards.get(guessCardId);
         opponentCardView.cardImageView.setImageResource(opponentCard.getResourceId());
         opponentCardView.cardName.setText(opponentCard.getName());
 
         String state = new SharedPrefs(context).readString(SharedPrefs.TAG_STATE);
-        boolean isHost = state.equals(Constants.HOST_SEND);
-        boolean isWinner = isHost ? selfCardId != opponentCardId : selfCardId == opponentCardId;
+        boolean isWinner = isGuesser ? realCardId != guessCardId : realCardId == guessCardId;
 
-        if(isHost){
+        if(isGuesser){
             if(isWinner) showHostAsWinner();
             else showHostAsLoser();
         } else {
