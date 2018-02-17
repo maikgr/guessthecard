@@ -103,7 +103,7 @@ public class GameOverActivity extends AppCompatActivity{
     }
 
     private void showHostAsWinner(){
-        gameResultText.setText(getString(R.string.title_opponent_lose));
+        gameResultText.setText(getString(R.string.title_self_win));
         selfCardText.setText(getString(R.string.self_card_text));
         opponentCardText.setText(getString(R.string.opponent_guess_text));
     }
@@ -115,13 +115,13 @@ public class GameOverActivity extends AppCompatActivity{
     }
 
     private void showHostAsLoser(){
-        gameResultText.setText(getString(R.string.title_self_win));
+        gameResultText.setText(getString(R.string.title_self_lose));
         selfCardText.setText(getString(R.string.self_guess_text));
         opponentCardText.setText(getString(R.string.opponent_card_text));
     }
 
     private void showOpponentAsLoser(){
-        gameResultText.setText(getString(R.string.title_self_lose));
+        gameResultText.setText(getString(R.string.title_opponent_lose));
         selfCardText.setText(getString(R.string.self_guess_text));
         opponentCardText.setText(getString(R.string.opponent_card_text));
     }
