@@ -21,11 +21,14 @@ public final class Constants {
     public static final String NEW_PLAYER = "new player";
     public static final String NEXT_RESULT = "next result";
     public static final String DISCONNECT_RESULT = "disconnect result";
-    public static final String GUESS_RESULT = "guess result";
+    public static final String CARD_RESULT = "card result";
+    public static final String END_GAME = "end game";
+    public static final String START_GAME = "start game";
 
     public static final String HOST_SEND = "host";
     public static final String JOIN_SEND = "join";
     public static final String NEXT_SEND = "next";
+    public static final String CARD_SEND = "card";
     public static final String DISCONNECT_SEND = "disconnect";
     public static final String GUESS_SEND = "guess";
 
