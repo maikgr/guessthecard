@@ -41,14 +41,18 @@ public final class Constants {
     }
 
     public static final GuessCard[] GUESS_CARDS = {
-            new GuessCard(0, "Alya Steenie", R.drawable.portrait1, false),
-            new GuessCard(1, "Itziar Panni", R.drawable.portrait2, false),
-            new GuessCard(2, "Radha Gunhild", R.drawable.portrait3, false),
-            new GuessCard(3, "Kaveh Jesper", R.drawable.portrait4, false),
-            new GuessCard(4, "Bogumir", R.drawable.portrait1, false),
-            new GuessCard(5, "Herman Poly", R.drawable.portrait2, false),
-            new GuessCard(6, "Jeanette Ley", R.drawable.portrait3, false),
-            new GuessCard(7, "Sieghild", R.drawable.portrait4, false)
+            new GuessCard(0, "Caterpie", R.drawable.caterpie, false),
+            new GuessCard(1, "Exeggutor", R.drawable.exeggutor, false),
+            new GuessCard(2, "Kakuna", R.drawable.kakuna, false),
+            new GuessCard(3, "Magnemite", R.drawable.magnemite, false),
+            new GuessCard(4, "Muk", R.drawable.muk, false),
+            new GuessCard(5, "Nidorina", R.drawable.nidorina, false),
+            new GuessCard(6, "Nidorino", R.drawable.nidorino, false),
+            new GuessCard(7, "Onix", R.drawable.onix, false),
+            new GuessCard(8, "Porygon", R.drawable.porygon, false),
+            new GuessCard(9, "Rapidash", R.drawable.rapidash, false),
+            new GuessCard(10, "Shellder", R.drawable.shellder, false),
+            new GuessCard(11, "Tauros", R.drawable.tauros, false)
     };
 
     public static final String SELF_CARD_ID = "self";
