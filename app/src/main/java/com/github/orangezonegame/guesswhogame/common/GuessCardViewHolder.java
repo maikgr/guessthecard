@@ -1,5 +1,9 @@
 package com.github.orangezonegame.guesswhogame.common;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
@@ -27,14 +31,16 @@ public class GuessCardViewHolder extends ViewHolder {
     CardView cardCardView;
 
     @BindView(R.id.overlay)
-    ImageView cardOverlay;
+    ConstraintLayout cardOverlay;
 
-    private int cardState;
+    private boolean isChosen;
+    private Context context;
 
-    public GuessCardViewHolder(View itemView) {
+    public GuessCardViewHolder(View itemView, Context context) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        setState(View.INVISIBLE);
+        this.context = context;
+        setIsChosen(false);
     }
 
     public void bind(final GuessCard guessCard, final GuessCardAdapter.GuessCardOnItemClickListener listener){
@@ -43,21 +49,21 @@ public class GuessCardViewHolder extends ViewHolder {
             @Override
             public void onClick(View view) {
                 listener.onItemClick(viewHolder, guessCard);
-                guessCard.setIsChosen(cardState == View.VISIBLE);
+                guessCard.setIsChosen(isChosen);
             }
         });
     }
 
-    public void toggleState(){
-        if (cardState == View.INVISIBLE){
-            setState(View.VISIBLE);
+    public void setIsChosen(boolean isChosen){
+        this.isChosen = isChosen;
+        if(isChosen){
+            cardOverlay.setBackground(context.getDrawable(R.drawable.overlay));
         } else{
-            setState(View.INVISIBLE);
+            cardOverlay.setBackgroundResource(0);
         }
     }
 
-    public void setState(int viewState){
-        cardOverlay.setVisibility(viewState);
-        cardState = viewState;
+    public void toggleState(){
+        setIsChosen(!isChosen);
     }
 }

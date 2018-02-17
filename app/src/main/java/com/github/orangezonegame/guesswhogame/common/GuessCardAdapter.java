@@ -1,6 +1,7 @@
 package com.github.orangezonegame.guesswhogame.common;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,12 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
 
     private List<GuessCard> guessCardList;
     private GuessCardOnItemClickListener listener;
+    private Context context;
 
-    public GuessCardAdapter(List<GuessCard> guessCardList, GuessCardOnItemClickListener listener) {
+    public GuessCardAdapter(Context context, List<GuessCard> guessCardList, GuessCardOnItemClickListener listener) {
         this.guessCardList = guessCardList;
         this.listener = listener;
+        this.context = context;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
     @Override
     public GuessCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_guess_card, parent, false);
-        return new GuessCardViewHolder(view);
+        return new GuessCardViewHolder(view, context);
     }
 
     @Override
@@ -41,8 +44,7 @@ public class GuessCardAdapter extends RecyclerView.Adapter<GuessCardViewHolder> 
         GuessCard card = guessCardList.get(position);
         holder.cardImage.setImageResource(card.getResourceId());
         holder.cardName.setText(card.getName());
-        if (card.getIsChosen()) holder.setState(View.VISIBLE);
-
+        holder.setIsChosen(card.getIsChosen());
         holder.bind(card, listener);
     }
 

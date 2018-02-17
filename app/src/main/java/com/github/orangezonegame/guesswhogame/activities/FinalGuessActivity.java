@@ -44,6 +44,7 @@ public class FinalGuessActivity extends AppCompatActivity {
     private ServerApp serverApp;
     private List<GuessCard> cards;
     private GuessCardViewHolder lastSelectedViewHolder;
+    private GuessCard lastSelectedCard;
     private int selectedCardId = -1;
 
     @Override
@@ -64,14 +65,18 @@ public class FinalGuessActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(context, prefs.readInt(SharedPrefs.TAG_MAXSPAN));
         cardsRecyclerView.setLayoutManager(layoutManager);
 
-        GuessCardAdapter adapter = new GuessCardAdapter(cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
+        GuessCardAdapter adapter = new GuessCardAdapter(context, cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
             @Override
             public void onItemClick(GuessCardViewHolder view, GuessCard guessCard) {
-                if(lastSelectedViewHolder != null)
-                    lastSelectedViewHolder.setState(View.INVISIBLE);
-                view.toggleState();
-                lastSelectedViewHolder = view;
+                if(lastSelectedViewHolder != null){
+                    lastSelectedViewHolder.setIsChosen(false);
+                    lastSelectedCard.setIsChosen(false);
+                }
+                view.setIsChosen(true);
+                guessCard.setIsChosen(true);
                 selectedCardId = guessCard.getId();
+                lastSelectedViewHolder = view;
+                lastSelectedCard = guessCard;
             }
         });
 
@@ -129,7 +134,6 @@ public class FinalGuessActivity extends AppCompatActivity {
                 startActivity(intent);
             } catch (JSONException e) {
                 Log.i("MainMenuActivity", "Catch error");
-                return;
             }
         }
     };

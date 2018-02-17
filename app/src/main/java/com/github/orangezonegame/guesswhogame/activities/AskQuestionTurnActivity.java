@@ -64,7 +64,7 @@ public class AskQuestionTurnActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(context, screenSpan);
         cardsRecyclerView.setLayoutManager(layoutManager);
 
-        GuessCardAdapter adapter = new GuessCardAdapter(cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
+        GuessCardAdapter adapter = new GuessCardAdapter(context, cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
             @Override
             public void onItemClick(GuessCardViewHolder view, GuessCard guessCard) {
                 view.toggleState();

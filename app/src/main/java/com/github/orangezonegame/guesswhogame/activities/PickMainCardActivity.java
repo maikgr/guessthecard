@@ -44,6 +44,7 @@ public class PickMainCardActivity extends AppCompatActivity {
 
     private Context context;
     private GuessCardViewHolder lastClickedViewHolder;
+    private GuessCard lastClickedCard;
     private List<GuessCard> cards;
     private int selectedCardId;
     private ServerApp serverApp;
@@ -68,15 +69,18 @@ public class PickMainCardActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(context, screenSpan);
         cardsRecyclerView.setLayoutManager(layoutManager);
 
-        GuessCardAdapter adapter = new GuessCardAdapter(cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
+        GuessCardAdapter adapter = new GuessCardAdapter(context, cards, new GuessCardAdapter.GuessCardOnItemClickListener() {
             @Override
             public void onItemClick(GuessCardViewHolder view, GuessCard guessCard) {
                 if(lastClickedViewHolder != null){
-                    lastClickedViewHolder.setState(View.INVISIBLE);
+                    lastClickedViewHolder.setIsChosen(false);
+                    lastClickedCard.setIsChosen(false);
                 }
-                view.toggleState();
+                view.setIsChosen(true);
+                guessCard.setIsChosen(true);
                 selectedCardId = guessCard.getId();
                 lastClickedViewHolder = view;
+                lastClickedCard = guessCard;
             }
         });
 
